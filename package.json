@@ -7,8 +7,16 @@
     "start": "node src/server.js",
     "dev": "node src/server.js"
   },
-  "keywords": ["nodejs", "backend", "events", "streams"],
+  "keywords": [
+    "nodejs",
+    "backend",
+    "events",
+    "streams"
+  ],
   "author": "Tejas",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
