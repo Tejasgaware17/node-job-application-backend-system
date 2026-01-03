@@ -1,0 +1,14 @@
+{
+  "name": "job-application-backend",
+  "version": "1.0.0",
+  "description": "Event-driven Nodejs Backend for processing job applications",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "keywords": ["nodejs", "backend", "events", "streams"],
+  "author": "Tejas",
+  "license": "ISC",
+  "type": "commonjs"
+}
