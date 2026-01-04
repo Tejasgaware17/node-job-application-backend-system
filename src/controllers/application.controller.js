@@ -1,6 +1,6 @@
 const { createApplication } = require("../services/application.service");
 
-const createApplicationController = (req, res) => {
+const createApplicationController = (req, res, next) => {
 	try {
 		const application = createApplication(req.body);
 
@@ -9,10 +9,7 @@ const createApplicationController = (req, res) => {
 			data: application,
 		});
 	} catch (error) {
-		res.status(500).json({
-			success: false,
-			message: "Failed to create application",
-		});
+		next(error);
 	}
 };
 
