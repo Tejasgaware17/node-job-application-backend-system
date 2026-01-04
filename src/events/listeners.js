@@ -1,17 +1,22 @@
 const emitter = require("./emitter");
+const logger = require("../utils/logger");
 
 const handleApplicationCreated = (application) => {
-	console.log(
-		`Handling application created - Application ID: ${application.id}`
-	);
+	logger.info("Application created", {
+		applicationId: application.id,
+	});
 };
 
 const sendConfirmationEmail = (application) => {
-	console.log(`Sending confirmation email - Application ID: ${application.id}`);
+	logger.info("Confirmation email sent", {
+		applicationId: application.id,
+	});
 };
 
 const trackAnalytics = (application) => {
-	console.log(`Tracking analytics - Application ID: ${application.id}`);
+	logger.info("Analytics tracked", {
+		applicationId: application.id,
+	});
 };
 
 emitter.on("application.created", handleApplicationCreated);
