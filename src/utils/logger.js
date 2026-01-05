@@ -1,7 +1,8 @@
 const fs = require("fs");
 const path = require("path");
+const config = require("../config");
 
-const logDir = path.join(__dirname, "../../logs");
+const logDir = config.paths.logs;
 
 if (!fs.existsSync(logDir)) {
 	fs.mkdirSync(logDir);

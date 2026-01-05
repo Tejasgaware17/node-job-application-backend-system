@@ -1,15 +1,14 @@
 require("./events/listeners");
+const config = require("./config");
 
 const app = require("./app");
 
-const PORT = process.env.PORT || 3000;
-
-const server = app.listen(PORT, () => {
-	console.log(`Server listening on port ${PORT}`);
+const server = app.listen(config.port, () => {
+	console.log(`Server listening on port ${config.port}`);
 });
 
 const shutdown = (signal) => {
-	console.log(`Received ${signal}, shutting down...`);
+	console.log(`Received ${signal} shutting down...`);
 
 	server.close(() => {
 		console.log("Server closed.");
@@ -22,5 +21,5 @@ const shutdown = (signal) => {
 	}, 10000);
 };
 
-process.on('SIGINT', shutdown)
-process.on('SIGTERM',shutdown)
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);
