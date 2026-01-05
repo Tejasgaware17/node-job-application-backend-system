@@ -1,5 +1,4 @@
 const { createApplication } = require("../services/application.service");
-const ValidationError = require("../errors/validation-error");
 
 const createApplicationController = (req, res, next) => {
 	try {
