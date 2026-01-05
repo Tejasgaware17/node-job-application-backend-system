@@ -18,6 +18,11 @@ const createApplication = (data) => {
 	return newApplicationObj;
 };
 
+const getApplicationById = (id) => {
+	return applications.find((app) => app.id === id);
+};
+
 module.exports = {
 	createApplication,
+	getApplicationById,
 };
