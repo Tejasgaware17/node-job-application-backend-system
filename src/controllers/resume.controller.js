@@ -1,6 +1,6 @@
 const { saveResumeStream } = require("../services/resume-upload.service");
-const NotFoundError = require("../errors/not-found-error");
 const { getApplicationById } = require("../services/application.service");
+const NotFoundError = require("../errors/not-found-error");
 const emitter = require("../events/emitter");
 
 const uploadResumeController = async (req, res, next) => {
@@ -9,15 +9,15 @@ const uploadResumeController = async (req, res, next) => {
 
 		const application = getApplicationById(id);
 		if (!application) {
-			throw new NotFoundError("Application not found! try again");
+			throw new NotFoundError("Application not found");
 		}
 
 		const resumePath = await saveResumeStream(req, id);
 		application.resumePath = resumePath;
 
 		emitter.emit("application.resume_uploaded", {
-			applicationId: application.id,
-			resumePath: application.resumePath,
+			applicationId: id,
+			resumePath,
 		});
 
 		res.status(200).json({

@@ -4,10 +4,14 @@ const { randomUUID } = require("crypto");
 const applications = [];
 
 const createApplication = (data) => {
+	const { name, email, role } = data;
+
 	const newApplicationObj = {
 		id: randomUUID(),
-		...data,
-		resumePath: data.resumePath || null,
+		name,
+		email,
+		role,
+		resumePath: null,
 		createdAt: new Date(),
 	};
 
@@ -28,6 +32,8 @@ const listApplications = ({ role, limit = 10, offset = 0 }) => {
 	if (role) {
 		result = result.filter((app) => app.role === role);
 	}
+
+	result = [...result].sort((a, b) => b.createdAt - a.createdAt);
 
 	const start = Number(offset) || 0;
 	const end = start + (Number(limit) || 10);

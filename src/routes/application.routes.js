@@ -1,12 +1,12 @@
 const express = require("express");
-const {
-	createApplicationController,
-} = require("../controllers/application.controller");
+const validateCreateApplication = require("../middlewares/validate-application.middleware");
+const { createApplicationController } = require("../controllers/application.controller");
 const { uploadResumeController } = require("../controllers/resume.controller");
 const { listApplicationsController } = require("../controllers/application-list.controller");
-const validateCreateApplication = require("../middlewares/validate-application.middleware");
 
 const router = express.Router();
+
+router.get("/applications", listApplicationsController);
 
 router.post(
 	"/applications",
@@ -15,7 +15,5 @@ router.post(
 );
 
 router.post("/applications/:id/resume", uploadResumeController);
-
-router.get('/applications', listApplicationsController)
 
 module.exports = router;

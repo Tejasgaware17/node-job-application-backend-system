@@ -23,9 +23,11 @@ emitter.on("application.created", handleApplicationCreated);
 emitter.on("application.created", sendConfirmationEmail);
 emitter.on("application.created", trackAnalytics);
 
-emitter.on("application.resume_uploaded", ({ applicationId, resumePath }) => {
+const handleResumeUploaded = ({ applicationId, resumePath }) => {
 	logger.info("Resume uploaded", {
 		applicationId,
 		resumePath,
 	});
-});
+};
+
+emitter.on("application.resume_uploaded", handleResumeUploaded);

@@ -6,7 +6,7 @@ const ValidationError = require("../errors/validation-error");
 const saveResumeStream = (req, applicationId) => {
 	const contentType = req.headers["content-type"];
 
-	if (!contentType || !contentType.includes("application/pdf")) {
+	if (!contentType?.includes("application/pdf")) {
 		throw new ValidationError("Only PDF resumes are allowed");
 	}
 
@@ -15,12 +15,16 @@ const saveResumeStream = (req, applicationId) => {
 
 	return new Promise((resolve, reject) => {
 		req.pipe(writeStream);
+		req.on("error", reject);
 
 		writeStream.on("finish", () => {
 			resolve(filePath);
 		});
 
-		writeStream.on("error", reject);
+		writeStream.on("error", (err) => {
+			writeStream.destroy();
+			reject(err);
+		});
 	});
 };
 
