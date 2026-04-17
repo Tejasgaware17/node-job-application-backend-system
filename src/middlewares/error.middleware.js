@@ -1,15 +1,27 @@
+const config = require("../config");
+
 const errorMiddleware = (err, req, res, next) => {
 	const statusCode = err.statusCode || 500;
+	const isOperational = err.isOperational || false;
 
-	const message =
-		typeof err.message === "string" && err.message.length > 0
-			? err.message
-			: "Internal Server Error";
+	if (!isOperational) {
+		console.error("Unexpected Error:", err);
+	}
 
-	res.status(statusCode).json({
+	const response = {
 		success: false,
-		message,
-	});
+		message:
+			isOperational && err.message
+				? err.message
+				: "Internal Server Error",
+	};
+
+	if (config.env === "development") {
+		response.stack = err.stack;
+		response.statusCode = statusCode;
+	}
+
+	res.status(statusCode).json(response);
 };
 
 module.exports = errorMiddleware;
